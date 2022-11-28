@@ -2,8 +2,8 @@ import Config
 
 # Configure your database
 config :employee_reward_app, EmployeeRewardApp.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: "kpz",
+  password: "",
   hostname: "localhost",
   database: "employee_reward_app_dev",
   stacktrace: true,

@@ -10,6 +10,13 @@ import Config
 config :employee_reward_app,
   ecto_repos: [EmployeeRewardApp.Repo]
 
+# Guardian module config, token authentication lib
+config :employee_reward_app, EmployeeRewardApp.Guardian,
+  issuer: "EmployeeRewardApp.#{Mix.env}",
+  ttl: {30, :days},
+  verify_issuer: true,
+  secret_key: "m1mk2#_32Xfsdf"
+
 # Configures the endpoint
 config :employee_reward_app, EmployeeRewardAppWeb.Endpoint,
   url: [host: "localhost"],

@@ -18,6 +18,10 @@ defmodule EmployeeRewardAppWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+
+    resources "/user", UserController, only: [:show, :new, :create]
+
+    resources "/sessions", SessionController, only: [:new, :create, :delete]
   end
 
   # Other scopes may use custom stacks.
