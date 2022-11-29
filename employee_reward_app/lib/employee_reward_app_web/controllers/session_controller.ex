@@ -39,7 +39,17 @@ defmodule EmployeeRewardAppWeb.SessionController do
   end
 
   def delete(conn, _params) do
-
+    conn
+    |> logout
+    |> put_flash(:info, "See You later")
+    |> redirect(to: Routes.page_path(conn, :index))
   end
 
+  defp logout(conn) do
+    Guardian.Plug.sign_out(conn)
+  end
+
+  def user_unauthorized(conn) do
+    redirect(conn, to: Routes.session_path(conn, :new))
+  end
 end

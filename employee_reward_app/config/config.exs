@@ -17,6 +17,10 @@ config :employee_reward_app, EmployeeRewardApp.Guardian,
   verify_issuer: true,
   secret_key: "m1mk2#_32Xfsdf"
 
+config :employee_reward_app, EmployeeRewardApp.AuthAccessPipeline,
+  module: EmployeeRewardApp.Guardian,
+  error_handler: EmployeeRewardApp.AuthErrorHandler
+
 # Configures the endpoint
 config :employee_reward_app, EmployeeRewardAppWeb.Endpoint,
   url: [host: "localhost"],

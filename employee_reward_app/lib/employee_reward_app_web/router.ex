@@ -14,16 +14,38 @@ defmodule EmployeeRewardAppWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :session_line do
+    plug EmployeeRewardApp.AuthAccessPipeline
+    plug EmployeeRewardAppWeb.CurrentUser
+  end
+
+  pipeline :login_pipeline do
+    plug EmployeeRewardApp.LoginPipeline
+    plug EmployeeRewardAppWeb.CurrentUser
+  end
+
   scope "/", EmployeeRewardAppWeb do
-    pipe_through :browser
+    pipe_through [:browser, :session_line]
 
     get "/", PageController, :index
 
-    resources "/user", UserController, only: [:show, :new, :create]
-
-    resources "/sessions", SessionController, only: [:new, :create, :delete]
+    resources "/sessions", SessionController, only: [:delete]
   end
 
+  scope "/user", EmployeeRewardAppWeb do
+    pipe_through [:browser, :login_pipeline]
+    get "/new", UserController, :new
+    get "/show/:id", UserController, :show
+    post "/create", UserController, :create
+  end
+
+  scope "/sessions", EmployeeRewardAppWeb do
+    pipe_through [:browser, :login_pipeline]
+
+    get "/new", SessionController, :new
+    post "/create", SessionController, :create
+
+  end
   # Other scopes may use custom stacks.
   # scope "/api", EmployeeRewardAppWeb do
   #   pipe_through :api
