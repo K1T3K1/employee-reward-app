@@ -3,7 +3,7 @@ defmodule EmployeeRewardApp.Repo.Migrations.CreateUsers do
 
   def change do
     create table(:users) do
-      add(:email, :string)
+      add(:email, :string, null: false)
       add(:name, :string)
       add(:surname, :string)
       add(:password, :string, virtual: true)

@@ -30,6 +30,7 @@ defmodule EmployeeRewardAppWeb.Router do
     get "/", PageController, :index
 
     resources "/sessions", SessionController, only: [:delete]
+    resources "/addpoints", PointsController, only: [:new, :create]
   end
 
   scope "/user", EmployeeRewardAppWeb do

@@ -13,7 +13,6 @@ defmodule EmployeeRewardApp.User do
     timestamps()
   end
 
-  @doc false
   def changeset(user, attrs) do
     cast(user, attrs, @required_fields)
     |> validate_required(@required_fields)
@@ -21,7 +20,9 @@ defmodule EmployeeRewardApp.User do
 
   def registration_changeset(struct, params) do
     changeset(struct, params)
-    |> cast(params, [:password], [])
+    |> cast(params, [:password, :email], [])
+    |> validate_format(:email, ~r/@/)
+    |> unique_constraint(:email)
     |> validate_length(:password, min: 6, max: 100)
     |> hash_password
   end

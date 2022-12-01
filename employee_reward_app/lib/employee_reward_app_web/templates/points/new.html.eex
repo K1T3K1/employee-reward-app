@@ -1,0 +1,12 @@
+<h2> Assign Points! </h2>
+<h3> Assigning Points for month: <%= @month %> </h3>
+<%= form_for @conn, Routes.points_path(@conn, :create), fn f -> %>
+    <div class="form-group">
+        <%= number_input f, :points_given, placeholder: "number of points", class: "form-control" %>
+        <%= error_tag f, :points_given %>
+    </div>
+
+    <%= select f, :user_id, @users, prompt: "Choose employee to be rewarded" %>
+
+    <%= submit "Assign points", class: "btn btn-primary" %>
+<% end %>
