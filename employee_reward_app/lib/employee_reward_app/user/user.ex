@@ -18,6 +18,11 @@ defmodule EmployeeRewardApp.User do
     |> validate_required(@required_fields)
   end
 
+  def user_id_changeset(user, id) do
+  cast(user, id, :id)
+  |> validate_required(:id)
+  end
+  
   def registration_changeset(struct, params) do
     changeset(struct, params)
     |> cast(params, [:password, :email], [])

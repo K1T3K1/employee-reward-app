@@ -4,8 +4,8 @@ defmodule EmployeeRewardApp.ReceivedPoints do
 
   schema "received_points" do
     field(:received_points, :integer)
-    field(:month, :string)
-    field(:year, :string)
+    field(:month, :integer)
+    field(:year, :integer)
     belongs_to(:user_id, EmployeeRewardApp.User)
 
     timestamps()

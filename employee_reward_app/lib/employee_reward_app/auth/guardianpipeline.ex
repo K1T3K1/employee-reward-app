@@ -6,5 +6,5 @@ defmodule EmployeeRewardApp.AuthAccessPipeline do
   plug Guardian.Plug.VerifySession, claims: %{"typ" => "access"}
   plug Guardian.Plug.VerifyHeader, claims: %{"typ" => "access"}
   plug Guardian.Plug.EnsureAuthenticated
-  plug Guardian.Plug.LoadResource, allow_blank: true
+  plug Guardian.Plug.LoadResource, allow_blank: false
 end
