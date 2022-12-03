@@ -1,8 +1,4 @@
 defmodule EmployeeRewardApp.GivenPoints do
-  alias EmployeeRewardApp.GivenPoints
-
-  alias EmployeeRewardApp.Repo
-
   use Ecto.Schema
   import Ecto.Changeset
 

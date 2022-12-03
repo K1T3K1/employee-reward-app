@@ -17,6 +17,15 @@ config :employee_reward_app, EmployeeRewardApp.Guardian,
   verify_issuer: true,
   secret_key: "m1mk2#_32Xfsdf"
 
+  config :tailwind, version: "3.2.4", default: [
+    args: ~w(
+      --config=tailwind.config.js
+      --input=css/app.css
+      --output=../priv/static/assets/app.css
+    ),
+    cd: Path.expand("../assets", __DIR__)
+  ]
+
 config :employee_reward_app, EmployeeRewardApp.AuthAccessPipeline,
   module: EmployeeRewardApp.Guardian,
   error_handler: EmployeeRewardApp.AuthErrorHandler

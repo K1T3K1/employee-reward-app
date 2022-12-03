@@ -1,11 +1,6 @@
 defmodule EmployeeRewardApp.AddPoints do
   use Ecto.Schema
   import Ecto.Changeset
-  import Ecto.Query
-
-  @points_limit 50
-
-  alias EmployeeRewardApp.ReceivedPoints
 
   schema "add_points" do
     field(:points_given, :integer)
@@ -16,8 +11,6 @@ defmodule EmployeeRewardApp.AddPoints do
   end
 
   def changeset(struct, attrs) do
-    IO.inspect(attrs)
-
     cast(struct, attrs, [:points_given, :receiving_user_id, :giving_user_id])
     |> cast_assoc(:receiving_user)
     |> cast_assoc(:giving_user)

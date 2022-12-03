@@ -17,9 +17,10 @@ defmodule EmployeeRewardAppWeb.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
+    user_params = Map.put_new(user_params, "is_admin", 0)
     changeset = %User{} |> User.registration_changeset(user_params)
 
-    case Repo.insert(changeset) do
+    case Repo.insert(changeset) |> IO.inspect() do
       {:ok, user} ->
         conn
         |> put_flash(:info, "User #{user.name} #{user.surname} created!")

@@ -9,6 +9,7 @@ defmodule EmployeeRewardApp.Repo.Migrations.CreateUsers do
       add(:password, :string, virtual: true)
       add(:password_hash, :string)
       add(:department, :string)
+      add(:is_admin, :integer)
 
       timestamps()
     end

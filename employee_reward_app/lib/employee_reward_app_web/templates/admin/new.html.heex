@@ -1,12 +1,11 @@
-<h1 class="text-3xl font-bold underline align-content: center">User Registration</h1>
-<div class="border-green bg-green justify-center">
-<%= form_for @changeset, Routes.user_path(@conn, :create), fn f -> %>
+<h1>Create new admin account</h1>
+<%= form_for @changeset, Routes.admin_path(@conn, :create), fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
       <p>There are some errors</p>
     </div>
   <% end %>
-  <div class="form-group border-green bg-green">
+  <div class="form-group">
     <%= text_input f, :email, placeholder: "Email",
                               class: "form-control" %>
     <%= error_tag f, :email %>
@@ -35,6 +34,5 @@
                                      class: "form-control" %>
     <%= error_tag f, :department %>
   </div>
-  <%= submit "Create User", class: "btn btn-primary focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900" %>
+  <%= submit "Create User", class: "btn btn-primary" %>
 <% end %>
-</div>

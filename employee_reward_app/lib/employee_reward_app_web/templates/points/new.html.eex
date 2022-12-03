@@ -11,8 +11,8 @@
         <%= number_input f, :points_given, placeholder: "Number of points", class: "form-control" %>
         <%= error_tag f, :points_given %>
     </div>
-
+    <div class="input-field">
     <%= select f, :user_id, Enum.map(@users, &{&1.name <> " " <> &1.surname <> ", " <> "Department: " <> &1.department, &1.id}), prompt: "Choose employee to be rewarded" %>
-
-    <%= submit "Assign points", class: "btn btn-primary" %>
+    </div>
+  <%= submit "Assign points", class: "btn btn-primary" %>
 <% end %>

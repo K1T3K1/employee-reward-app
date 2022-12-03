@@ -8,7 +8,7 @@ defmodule EmployeeRewardApp.MixProject do
       elixir: "~> 1.12",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: Mix.compilers(),
-      start_permanent: Mix.env() == :prod,
+      start_permanent: Mix.env() == :dev,
       aliases: aliases(),
       deps: deps()
     ]
@@ -50,7 +50,8 @@ defmodule EmployeeRewardApp.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:bcrypt_elixir, "~>2.0"},
-      {:guardian, "~>2.0"}
+      {:guardian, "~>2.0"},
+      {:tailwind, "~> 0.1"}
     ]
   end
 
@@ -66,7 +67,7 @@ defmodule EmployeeRewardApp.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.deploy": ["esbuild default --minify", "phx.digest"]
+      "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"]
     ]
   end
 end

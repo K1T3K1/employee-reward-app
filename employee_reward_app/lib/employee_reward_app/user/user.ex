@@ -1,7 +1,7 @@
 defmodule EmployeeRewardApp.User do
   use Ecto.Schema
   import Ecto.Changeset
-  @required_fields [:email, :name, :surname, :password, :department]
+  @required_fields [:email, :name, :surname, :password, :department, :is_admin]
   schema "users" do
     field :email, :string
     field :name, :string
@@ -9,6 +9,7 @@ defmodule EmployeeRewardApp.User do
     field :password, :string, virtual: true
     field :password_hash, :string
     field :department, :string
+    field :is_admin, :integer
 
     timestamps()
   end
@@ -22,7 +23,7 @@ defmodule EmployeeRewardApp.User do
   cast(user, id, :id)
   |> validate_required(:id)
   end
-  
+
   def registration_changeset(struct, params) do
     changeset(struct, params)
     |> cast(params, [:password, :email], [])

@@ -2,51 +2,63 @@ defmodule EmployeeRewardAppWeb.Router do
   use EmployeeRewardAppWeb, :router
 
   pipeline :browser do
-    plug :accepts, ["html"]
-    plug :fetch_session
-    plug :fetch_live_flash
-    plug :put_root_layout, {EmployeeRewardAppWeb.LayoutView, :root}
-    plug :protect_from_forgery
-    plug :put_secure_browser_headers
+    plug(:accepts, ["html"])
+    plug(:fetch_session)
+    plug(:fetch_live_flash)
+    plug(:put_root_layout, {EmployeeRewardAppWeb.LayoutView, :root})
+    plug(:protect_from_forgery)
+    plug(:put_secure_browser_headers)
   end
 
   pipeline :api do
-    plug :accepts, ["json"]
+    plug(:accepts, ["json"])
   end
 
   pipeline :session_line do
-    plug EmployeeRewardApp.AuthAccessPipeline
-    plug EmployeeRewardAppWeb.CurrentUser
+    plug(EmployeeRewardApp.AuthAccessPipeline)
+    plug(EmployeeRewardAppWeb.CurrentUser)
   end
 
   pipeline :login_pipeline do
-    plug EmployeeRewardApp.LoginPipeline
-    plug EmployeeRewardAppWeb.CurrentUser
+    plug(EmployeeRewardApp.LoginPipeline)
+    plug(EmployeeRewardAppWeb.CurrentUser)
   end
 
+  #pipeline :admin_pipeline do
+  #  plug(EmployeeRewardApp.LoginPipeline)
+  #  plug(EmployeeRewardAppWeb.CurrentUser)
+  #end
+
   scope "/", EmployeeRewardAppWeb do
-    pipe_through [:browser, :session_line]
+    pipe_through([:browser, :session_line])
 
-    get "/", PageController, :index
+    get("/", PageController, :index)
 
-    resources "/sessions", SessionController, only: [:delete]
-    resources "/addpoints", PointsController, only: [:new, :create]
+    resources("/sessions", SessionController, only: [:delete])
+    resources("/addpoints", PointsController, only: [:new, :create])
   end
 
   scope "/user", EmployeeRewardAppWeb do
-    pipe_through [:browser, :login_pipeline]
-    get "/new", UserController, :new
-    get "/show/:id", UserController, :show
-    post "/create", UserController, :create
+    pipe_through([:browser, :login_pipeline])
+    get("/new", UserController, :new)
+    get("/show/:id", UserController, :show)
+    post("/create", UserController, :create)
   end
+
+ # scope "/admin", EmployeeRewardAppWeb do
+ #   pipe_through([:browser, :admin_pipeline])
+ #   get("/new", AdminController, :new)
+ #   get("/show/:id", AdminController, :show)
+ #   post("/create", AdminController, :create)
+ # end
 
   scope "/sessions", EmployeeRewardAppWeb do
-    pipe_through [:browser, :login_pipeline]
+    pipe_through([:browser, :login_pipeline])
 
-    get "/new", SessionController, :new
-    post "/create", SessionController, :create
-
+    get("/new", SessionController, :new)
+    post("/create", SessionController, :create)
   end
+
   # Other scopes may use custom stacks.
   # scope "/api", EmployeeRewardAppWeb do
   #   pipe_through :api
@@ -63,9 +75,9 @@ defmodule EmployeeRewardAppWeb.Router do
     import Phoenix.LiveDashboard.Router
 
     scope "/" do
-      pipe_through :browser
+      pipe_through(:browser)
 
-      live_dashboard "/dashboard", metrics: EmployeeRewardAppWeb.Telemetry
+      live_dashboard("/dashboard", metrics: EmployeeRewardAppWeb.Telemetry)
     end
   end
 
@@ -75,9 +87,9 @@ defmodule EmployeeRewardAppWeb.Router do
   # node running the Phoenix server.
   if Mix.env() == :dev do
     scope "/dev" do
-      pipe_through :browser
+      pipe_through(:browser)
 
-      forward "/mailbox", Plug.Swoosh.MailboxPreview
+      forward("/mailbox", Plug.Swoosh.MailboxPreview)
     end
   end
 end
