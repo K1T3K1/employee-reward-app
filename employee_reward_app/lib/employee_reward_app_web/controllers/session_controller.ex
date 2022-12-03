@@ -12,21 +12,25 @@ defmodule EmployeeRewardAppWeb.SessionController do
   def create(conn, %{"session" => %{"email" => email, "password" => password}}) do
     user = Repo.get_by(User, email: email)
 
-    result = cond do
-      user && Bcrypt.verify_pass(password, user.password_hash) ->
-        {:ok, login(conn, user)}
-      user ->
-        {:error, :unauthorized, conn}
-      true ->
-        Bcrypt.no_user_verify()
-        {:error, :not_found, conn}
-    end
+    result =
+      cond do
+        user && Bcrypt.verify_pass(password, user.password_hash) ->
+          {:ok, login(conn, user)}
+
+        user ->
+          {:error, :unauthorized, conn}
+
+        true ->
+          Bcrypt.no_user_verify()
+          {:error, :not_found, conn}
+      end
 
     case result do
       {:ok, conn} ->
         conn
         |> put_flash(:info, "You're now logged in")
         |> redirect(to: Routes.page_path(conn, :index))
+
       {:error, _reason, conn} ->
         conn
         |> put_flash(:error, "Invalid email or password")

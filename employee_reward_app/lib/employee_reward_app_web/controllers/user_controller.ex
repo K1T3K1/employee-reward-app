@@ -4,7 +4,8 @@ defmodule EmployeeRewardAppWeb.UserController do
   alias EmployeeRewardApp.Repo
   alias EmployeeRewardApp.User
 
-  plug :scrub_params, "user" when action in [:create]
+  plug(:scrub_params, "user" when action in [:create])
+
   def show(conn, %{"id" => id}) do
     user = Repo.get!(User, id)
     render(conn, "show.html", user: user)
@@ -23,9 +24,9 @@ defmodule EmployeeRewardAppWeb.UserController do
         conn
         |> put_flash(:info, "User #{user.name} #{user.surname} created!")
         |> redirect(to: Routes.user_path(conn, :show, user))
+
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
   end
-
 end

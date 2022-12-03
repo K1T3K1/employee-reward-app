@@ -11,5 +11,4 @@ defmodule EmployeeRewardApp.Guardian do
     user = EmployeeRewardApp.Repo.get(EmployeeRewardApp.User, id)
     {:ok, user}
   end
-
 end
