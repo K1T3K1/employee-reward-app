@@ -1,0 +1,26 @@
+<ul class="flex flex-wrap text-sm w-screen font-medium text-center justify-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
+    <li class="mr-2">
+        <%= link "Profile", to: Routes.user_path(@conn, :show, @current_user.id), class: "inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300" %>
+    </li>
+    <li class="mr-2">
+        <%= link "Rewards", to: Routes.user_path(@conn, :rewards, @current_user.id), class: "font-bold text-blue-600 inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300" %>
+    </li>
+    <li class="mr-2">
+        <%= link "Points", to: Routes.points_path(@conn, :new), class: "inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"%>
+    </li>
+    <li class="mr-2">
+        <%= link "Settings", to: Routes.user_path(@conn, :settings, @current_user.id), class: "inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300" %>
+    </li>
+</ul>
+
+<body class="font-sans antialiased w-screen text-gray-900 leading-normal tracking-wider bg-cover">
+<div class="flex justify-center place-content-between w-screen md:mt-16">
+	<div class="w-screen max-w-4xl lg:w-3/5 rounded-lg lg:rounded-2xl shadow-2xl bg-white opacity-125">
+		<div class="p-4 md:p-12 text-center lg:text-left">
+			<h1 class="text-3xl font-bold pt-8 lg:pt-0">Your received rewards</h1>
+			<div class="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-blue-500 opacity-25"></div>
+
+		</div>
+	</div>
+</div>
+</body>

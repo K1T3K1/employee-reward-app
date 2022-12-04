@@ -1,26 +1,21 @@
-<div class="grid justify-center place-content-betweeen w-screen md:mt-64">
+<body class="font-sans antialiased w-screen text-gray-900 leading-normal tracking-wider bg-cover">
+<div class="flex justify-center place-content-between w-screen md:mt-16 ">
+<div class="w-screen max-w-xs rounded-lg lg:rounded-2xl shadow-2xl p-4 bg-white opacity-125">
 <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Sign in</h1>
 <%= form_for @conn, Routes.session_path(@conn, :create), [as: :session], fn f -> %>
   <label for="input-group-1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Email</label>
   <div class="form-group">
-  <div class="relative mb-6">
-  <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-    <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
-  </div>
-    <%= text_input f, :email, placeholder: "Email", class: "form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" %>
-  </div>
+    <%= text_input f, :email, placeholder: "Email", class: "form-control bg-gray-50 border-gray-300 text-gray-900 text-sm w-full rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:mt-2 mb-2" %>
   </div>
   <label for="website-admin" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-  <div class="flex">
-  <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-    *
-  </span>
   <div class="form-group">
-    <%= password_input f, :password, placeholder: "Password", class: "form-control rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" %>
-  </div>
+    <%= password_input f, :password, placeholder: "Password", class: "form-control bg-gray-50 border-gray-300 text-gray-900 text-sm w-full rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:mt-2 mb-2" %>
   </div>
   <div class="pt-5">
   <%= submit "Sign in", class: "btn btn-primary text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" %>
   </div>
 <% end %>
 </div>
+</div>
+
+

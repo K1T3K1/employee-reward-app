@@ -42,6 +42,8 @@ defmodule EmployeeRewardAppWeb.Router do
     pipe_through([:browser, :login_pipeline])
     get("/new", UserController, :new)
     get("/show/:id", UserController, :show)
+    get("/rewards/:id", UserController, :rewards)
+    get("/settings/:id", UserController, :settings)
     post("/create", UserController, :create)
   end
 

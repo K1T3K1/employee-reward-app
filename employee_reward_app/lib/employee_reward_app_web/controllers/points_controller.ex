@@ -7,7 +7,7 @@ defmodule EmployeeRewardAppWeb.PointsController do
   alias EmployeeRewardApp.User
   alias EmployeeRewardApp.GivenPoints
   alias EmployeeRewardApp.ReceivedPoints
-  @points_limit 500000
+  @points_limit 500_000
 
   plug(:scrub_params, "add_points" when action in [:create])
 
@@ -17,8 +17,14 @@ defmodule EmployeeRewardAppWeb.PointsController do
     {year, month} = get_month_year_int()
     changeset = AddPoints.changeset(%AddPoints{}, %{})
 
-    users = get_user_list(user)
+    users = get_user_list(user.id)
     current_user_points = get_user_given_points(conn, user.id, year, month)
+    points_history = get_user_transactions(user.id)
+
+    points_history =
+      for log <- points_history do
+        Map.put_new(log, :month, get_month_string(log.date))
+      end
 
     render(conn, "new.html",
       user: user,
@@ -26,15 +32,34 @@ defmodule EmployeeRewardAppWeb.PointsController do
       points_limit: @points_limit,
       month: month_string,
       changeset: changeset,
-      users: users
+      users: users,
+      points_history: points_history
     )
   end
 
   defp get_user_list(current_user) do
     query =
       from(u in User,
-        where: u.id != ^current_user.id,
+        where: u.id != ^current_user,
         select: %{id: u.id, name: u.name, surname: u.surname, department: u.department}
+      )
+
+    Repo.all(query)
+  end
+
+  defp get_user_transactions(current_user) do
+    query =
+      from(a in AddPoints,
+        join: u in User, on: u.id == a.receiving_user_id,
+        where: a.giving_user_id == ^current_user,
+        select: %{
+          giving_user: a.giving_user_id,
+          target_user: a.receiving_user_id,
+          target_user_name: u.name,
+          target_user_surname: u.surname,
+          points: a.points_given,
+          date: a.inserted_at
+        }
       )
 
     Repo.all(query)
@@ -42,6 +67,10 @@ defmodule EmployeeRewardAppWeb.PointsController do
 
   defp get_month_string() do
     Calendar.strftime(DateTime.utc_now(), "%B")
+  end
+
+  defp get_month_string(date_time_struct) do
+    Calendar.strftime(date_time_struct, "%B")
   end
 
   defp get_month_year_int() do
@@ -63,13 +92,20 @@ defmodule EmployeeRewardAppWeb.PointsController do
       |> redirect(to: Routes.points_path(conn, :new))
     end
 
+    points = String.to_integer(points)
+
+    if points < 1 do
+      put_flash(conn, :error, "You have to assign at least 1 point!")
+      |> redirect(to: Routes.points_path(conn, :new))
+    end
+
     validate_points(
       conn,
       source_user,
       String.to_integer(target_user),
       year,
       month,
-      String.to_integer(points)
+      points
     )
   end
 

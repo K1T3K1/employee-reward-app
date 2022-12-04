@@ -1,40 +1,51 @@
-<h1 class="text-3xl font-bold underline align-content: center">User Registration</h1>
-<div class="border-green bg-green justify-center">
-<%= form_for @changeset, Routes.user_path(@conn, :create), fn f -> %>
-  <%= if @changeset.action do %>
-    <div class="alert alert-danger">
-      <p>There are some errors</p>
+<%= if @changeset.action do %>
+    <div class="flex justify-center w-9/10">
+    <div id="toast-warning" class="flex items-center p-4 w-full max-w-xs text-gray-500 bg-white rounded-lg shadow-xl dark:text-gray-400 dark:bg-gray-800" role="alert">
+    <div class="inline-flex flex-shrink-0 justify-center items-center w-8 h-8 text-orange-500 bg-orange-100 rounded-lg dark:bg-orange-700 dark:text-orange-200">
+        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+        <span class="sr-only">Warning icon</span>
+    </div>
+    <div class="ml-3 text-sm font-normal">There are some errors.</div>
+    </div>
     </div>
   <% end %>
-  <div class="form-group border-green bg-green">
-    <%= text_input f, :email, placeholder: "Email",
-                              class: "form-control" %>
+<body class="font-sans antialiased w-screen text-gray-900 leading-normal tracking-wider bg-cover">
+<div class="flex justify-center place-content-between w-screen md:mt-16 ">
+<div class="w-screen max-w-xs lg:w-3/5 rounded-lg lg:rounded-2xl shadow-2xl p-4 bg-white opacity-125">
+<%= form_for @changeset, Routes.user_path(@conn, :create), fn f -> %>
+  <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Register</h1>
+    <label for="input-group-1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Email</label>
+  <div class="form-group mb-3">
+    <%= text_input f, :email, placeholder: "worker@company.com", class: "form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" %>
     <%= error_tag f, :email %>
   </div>
-
-  <div class="form-group">
+  <label for="input-group-1" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+  <div class="form-group mb-3">
     <%= text_input f, :name, placeholder: "Name",
-                             class: "form-control" %>
-    <%= error_tag f, :name %>
+                             class: "form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" %>
+    <%= error_tag f, :name%>
   </div>
-
-  <div class="form-group">
+  <label for="input-group-1" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Surname</label>
+  <div class="form-group mb-3">
     <%= text_input f, :surname, placeholder: "Surname",
-                             class: "form-control" %>
+                             class: "form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" %>
     <%= error_tag f, :surname %>
   </div>
-
-  <div class="form-group">
+  <label for="input-group-1" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+  <div class="form-group mb-3">
     <%= password_input f, :password, placeholder: "Password",
-                                     class: "form-control" %>
+                                     class: "form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" %>
     <%= error_tag f, :password %>
   </div>
-
-  <div class="form-group">
+  <label for="input-group-1" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Department</label>
+  <div class="form-group ">
     <%= text_input f, :department, placeholder: "Department",
-                                     class: "form-control" %>
+                                     class: "form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" %>
     <%= error_tag f, :department %>
   </div>
-  <%= submit "Create User", class: "btn btn-primary focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900" %>
+  <div class="pt-3">
+  <%= submit "Create User", class: "btn btn-primary text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" %>
+  </div>
 <% end %>
+</div>
 </div>

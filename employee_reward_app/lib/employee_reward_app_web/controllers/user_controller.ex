@@ -24,10 +24,18 @@ defmodule EmployeeRewardAppWeb.UserController do
       {:ok, user} ->
         conn
         |> put_flash(:info, "User #{user.name} #{user.surname} created!")
-        |> redirect(to: Routes.user_path(conn, :show, user))
+        |> redirect(to: Routes.session_path(conn, :new))
 
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
+  end
+
+  def rewards(conn, _params) do
+    render(conn, "rewards.html")
+  end
+
+  def settings(conn, params) do
+    render(conn, "settings.html")
   end
 end

@@ -1,17 +1,16 @@
-defmodule EmployeeRewardApp.RewardSets do
+defmodule EmployeeRewardApp.Reward do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @required [:reward_id]
+  @required [:reward]
   schema "reward" do
-    has_many(:reward, EmployeeRewardApp.Reward)
+    field(:reward, :string)
 
     timestamps()
   end
 
   def changeset(struct, attrs) do
     cast(struct, attrs, @required)
-    |> cast_assoc(:reward)
     |> validate_required(@required)
   end
 end

@@ -29,7 +29,7 @@ defmodule EmployeeRewardAppWeb.SessionController do
       {:ok, conn} ->
         conn
         |> put_flash(:info, "You're now logged in")
-        |> redirect(to: Routes.page_path(conn, :index))
+        |> redirect(to: Routes.user_path(conn, :show, user))
 
       {:error, _reason, conn} ->
         conn

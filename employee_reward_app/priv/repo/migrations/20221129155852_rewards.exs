@@ -2,8 +2,7 @@ defmodule EmployeeRewardApp.Repo.Migrations.Rewards do
   use Ecto.Migration
 
   def change do
-    create table(:reward_sets) do
-      add(:points_required, :integer)
+    create table(:rewards) do
       add(:reward, :string)
 
       timestamps()
