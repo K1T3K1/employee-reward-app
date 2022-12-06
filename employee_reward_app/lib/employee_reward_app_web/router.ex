@@ -45,6 +45,7 @@ defmodule EmployeeRewardAppWeb.Router do
     get("/rewards/:id", UserController, :rewards)
     get("/settings/:id", UserController, :settings)
     post("/create", UserController, :create)
+    post("/settings/change_password", UserController, :change_password)
   end
 
  # scope "/admin", EmployeeRewardAppWeb do

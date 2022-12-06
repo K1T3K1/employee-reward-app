@@ -8,7 +8,8 @@ defmodule EmployeeRewardAppWeb.UserController do
 
   def show(conn, %{"id" => id}) do
     user = Repo.get!(User, id)
-    render(conn, "show.html", user: user)
+    points = EmployeeRewardAppWeb.PointsController.get_user_points_this_month(id)
+    render(conn, "show.html", user: user, points: points)
   end
 
   def new(conn, _params) do
@@ -31,11 +32,45 @@ defmodule EmployeeRewardAppWeb.UserController do
     end
   end
 
+  def change_password(conn, %{"session" => %{"check_password" => check_password, "new_password" => new_password}}) do
+    user_id = conn.assigns.current_user.id
+    user = Repo.get_by(User, id: user_id)
+    result = cond do
+      user && Bcrypt.verify_pass(check_password, user.password_hash) ->
+        {:ok, update_password(user, new_password)}
+
+        user ->
+          {:error, :unauthorized, conn}
+
+        true ->
+          Bcrypt.no_user_verify()
+          {:error, :not_found, conn}
+    end
+
+    case result do
+      {:ok, conn} ->
+        conn
+        |> put_flash(:info, "Password succesfully changed")
+        |> redirect(to: Routes.user_path(conn, :show, user))
+
+      {:error, _reason, conn} ->
+        conn
+        |> put_flash(:error, "Invalid password")
+        |> render("new.html")
+    end
+  end
+
+  defp update_password(user, new_password) do
+    user
+    |> User.password_changeset(%{password: new_password})
+    |> Repo.update()
+  end
+
   def rewards(conn, _params) do
     render(conn, "rewards.html")
   end
 
-  def settings(conn, params) do
+  def settings(conn, _params) do
     render(conn, "settings.html")
   end
 end

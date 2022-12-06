@@ -19,16 +19,18 @@ defmodule EmployeeRewardApp.User do
     |> validate_required(@required_fields)
   end
 
-  def user_id_changeset(user, id) do
-  cast(user, id, :id)
-  |> validate_required(:id)
-  end
-
   def registration_changeset(struct, params) do
     changeset(struct, params)
     |> cast(params, [:password, :email], [])
     |> validate_format(:email, ~r/@/)
     |> unique_constraint(:email)
+    |> validate_length(:password, min: 6, max: 100)
+    |> hash_password
+  end
+
+  def password_changeset(struct, params) do
+    changeset(struct, params)
+    |> cast(params, [:password, :id], [])
     |> validate_length(:password, min: 6, max: 100)
     |> hash_password
   end

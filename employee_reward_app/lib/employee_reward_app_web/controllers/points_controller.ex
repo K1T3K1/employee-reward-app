@@ -210,6 +210,18 @@ defmodule EmployeeRewardAppWeb.PointsController do
     Repo.get_by(ReceivedPoints, user_id: target_user, year: year, month: month)
   end
 
+  def get_user_points_this_month(user_id) do
+    {year, month} = get_month_year_int()
+    case get_user_received_points(user_id, year, month) do
+      %ReceivedPoints{points_received: previous_points} ->
+        previous_points
+
+      nil ->
+        insert_new_received_points_record(user_id, 0, year, month)
+        get_user_points_this_month(user_id)
+    end
+  end
+
   defp update_received_points(points_sum, user, year, month) do
     get_user_received_points(user, year, month)
     |> ReceivedPoints.changeset(%{points_received: points_sum})
