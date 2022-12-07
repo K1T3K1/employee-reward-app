@@ -29,7 +29,7 @@ defmodule EmployeeRewardAppWeb.SessionController do
       {:ok, conn} ->
         conn
         |> put_flash(:info, "You're now logged in")
-        |> redirect(to: Routes.user_path(conn, :show, user))
+        |> redirect(to: Routes.user_path(conn, :show))
 
       {:error, _reason, conn} ->
         conn
@@ -49,7 +49,7 @@ defmodule EmployeeRewardAppWeb.SessionController do
     |> redirect(to: Routes.page_path(conn, :index))
   end
 
-  defp logout(conn) do
+  def logout(conn) do
     Guardian.Plug.sign_out(conn)
   end
 

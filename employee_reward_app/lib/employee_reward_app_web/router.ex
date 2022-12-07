@@ -41,11 +41,13 @@ defmodule EmployeeRewardAppWeb.Router do
   scope "/user", EmployeeRewardAppWeb do
     pipe_through([:browser, :login_pipeline])
     get("/new", UserController, :new)
-    get("/show/:id", UserController, :show)
+    get("/show/", UserController, :show)
     get("/rewards/:id", UserController, :rewards)
-    get("/settings/:id", UserController, :settings)
+    get("/settings/", UserController, :settings)
     post("/create", UserController, :create)
     post("/settings/change_password", UserController, :change_password)
+    patch("/settings/change_password", UserController, :change_password)
+    put("/settings/change_password", UserController, :change_password)
   end
 
  # scope "/admin", EmployeeRewardAppWeb do

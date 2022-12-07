@@ -1,6 +1,6 @@
 <ul class="flex flex-wrap text-sm w-screen font-medium text-center justify-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
     <li class="mr-2">
-        <%= link "Profile", to: Routes.user_path(@conn, :show, @current_user.id), class: "inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300" %>
+        <%= link "Profile", to: Routes.user_path(@conn, :show), class: "inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300" %>
     </li>
     <li class="mr-2">
         <%= link "Rewards", to: Routes.user_path(@conn, :rewards, @current_user.id), class: "inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300" %>
@@ -9,7 +9,7 @@
         <%= link "Points", to: Routes.points_path(@conn, :new), class: "font-bold text-blue-600 inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"%>
     </li>
     <li class="mr-2">
-        <%= link "Settings", to: Routes.user_path(@conn, :settings, @current_user.id), class: "inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300" %>
+        <%= link "Settings", to: Routes.user_path(@conn, :settings), class: "inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300" %>
     </li>
 </ul>
 
