@@ -22,6 +22,7 @@ config :logger, level: :info
     config :employee_reward_app, EmployeeRewardAppWeb.Endpoint,
       ...,
       url: [scheme: "https", host: "https://obscure-sands-94580.herokuapp.com/", port: 443],
+      force_ssl: [rewrite_on: [:x_forwarded_proto]],
       https: [
         ...,
         port: 443,
@@ -29,6 +30,8 @@ config :logger, level: :info
         keyfile: System.get_env("SOME_APP_SSL_KEY_PATH"),
         certfile: System.get_env("SOME_APP_SSL_CERT_PATH")
       ]
+
+
 # The `cipher_suite` is set to `:strong` to support only the
 # latest and more secure SSL ciphers. This means old browsers
 # and clients may not be supported. You can set it to
