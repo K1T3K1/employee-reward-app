@@ -6,7 +6,7 @@ defmodule EmployeeRewardApp.PointsHelper do
   alias EmployeeRewardApp.GivenPoint
   alias EmployeeRewardApp.ReceivedPoint
   alias EmployeeRewardApp.UserHelper
-  @points_limit 500_000
+
 
   def populate_points_panel(user_id) do
     month_string = get_month_string()
@@ -16,6 +16,7 @@ defmodule EmployeeRewardApp.PointsHelper do
     users = UserHelper.get_user_list(user_id)
     current_user_points = get_user_given_points(user_id, year, month)
     points_history = get_user_transactions(user_id)
+    points_limit = get_user_points_limit(user_id)
 
     points_history =
       for log <- points_history do
@@ -24,7 +25,7 @@ defmodule EmployeeRewardApp.PointsHelper do
 
     %{
       current_points: current_user_points,
-      points_limit: @points_limit,
+      points_limit: points_limit,
       month: month_string,
       users: users,
       points_history: points_history,
@@ -61,10 +62,11 @@ defmodule EmployeeRewardApp.PointsHelper do
 
   def validate_points(source_user, target_user, points) do
     {year, month} = get_month_year_int()
+    points_limit = get_user_points_limit(source_user)
 
     case Repo.get_by(GivenPoint, user_id: source_user, year: year, month: month) do
       %GivenPoint{points_given: allocated_points, user_id: _id, month: _month, year: _year}
-      when allocated_points + points <= @points_limit ->
+      when allocated_points + points <= points_limit ->
         update_user_given_points(
           source_user,
           target_user,
@@ -126,7 +128,8 @@ defmodule EmployeeRewardApp.PointsHelper do
      %{
        points_assigned: Integer.to_string(points_assigned),
        target_name: user_receiving.name,
-       target_surname: user_receiving.surname
+       target_surname: user_receiving.surname,
+       target_email: user_receiving.email
      }}
   end
 
@@ -152,6 +155,14 @@ defmodule EmployeeRewardApp.PointsHelper do
 
   defp get_user_received_points(target_user, year, month) do
     Repo.get_by(ReceivedPoint, user_id: target_user, year: year, month: month)
+  end
+
+  defp get_user_points_limit(user_id) do
+    query = from(u in User,
+    where: u.id == ^user_id,
+    select: u.points_limit)
+
+    Repo.one(query)
   end
 
   def get_user_received_points(user_id) do

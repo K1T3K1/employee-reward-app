@@ -43,6 +43,7 @@ defmodule EmployeeRewardAppWeb.Router do
     post("/settings/change_password", UserController, :change_password)
     patch("/settings/change_password", UserController, :change_password)
     put("/settings/change_password", UserController, :change_password)
+    get("/admin/new", AdminController, :new)
   end
 
  # scope "/admin", EmployeeRewardAppWeb do

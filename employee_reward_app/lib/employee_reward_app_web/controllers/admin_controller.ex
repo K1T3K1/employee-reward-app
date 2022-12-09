@@ -8,9 +8,10 @@ defmodule EmployeeRewardAppWeb.AdminController do
 
   def new(conn, _params) do
     current_user = conn.assigns.current_user.id
-    changeset = User.points_limit_changeset(%User{}, %{})
+    points_limit_changeset = User.points_limit_changeset(%User{}, %{})
     user_list = AdminHelper.get_user_list(current_user)
-    render(conn, "new.html", changeset: changeset, users: user_list)
+    recent_points_log = AdminHelper.get_recent_points_history()
+    render(conn, "new.html", points_limit_changeset: points_limit_changeset, users: user_list, recent_points_log: recent_points_log)
   end
 
 

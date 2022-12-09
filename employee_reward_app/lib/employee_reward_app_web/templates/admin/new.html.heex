@@ -7,7 +7,7 @@
         <%= link "Rewards", to: Routes.user_path(@conn, :rewards, @current_user.id), class: "inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300" %>
     </li>
     <li class="mr-2">
-        <%= link "Points", to: Routes.points_path(@conn, :new), class: "font-bold text-blue-600 inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"%>
+        <%= link "Points", to: Routes.points_path(@conn, :new), class: "inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"%>
     </li>
     <li class="mr-2">
         <%= link "Settings", to: Routes.user_path(@conn, :settings), class: "inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300" %>
@@ -15,27 +15,26 @@
 </ul>
 
 
-<%= if @current_user.is_admin == 1 %>
+<%= if @current_user.is_admin == 1 do %>
+
 <body class="font-sans antialiased w-screen text-gray-900 leading-normal tracking-wider bg-cover">
 <div class="flex justify-center place-content-between w-screen md:mt-16 ">
+<div class="w-screen max-w-md p-4 lg:w-3/5 rounded-lg lg:rounded-2xl shadow-2xl bg-white opacity-125">
+<h3 class="mb-4 text-2xl font-extrabold tracking-tight leading-none text-gray-900 md:text-2xl lg:text-2xl dark:text-white">Change user's reward pool</h3>
 
-<div class="w-screen max-w-fit pr-4 lg:w-3/5 rounded-lg lg:rounded-2xl shadow-2xl bg-white opacity-125">
-<h1 class="mb-4 ml-4 mt-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-4xl lg:text-4xl dark:text-white">Change co-workers: <mark class="px-2 text-white bg-blue-600 rounded dark:bg-blue-500">rewards limit</mark></h>
-
-<h4 class="mb-4 ml-4 text-1xl font-extrabold tracking-tight leading-none text-gray-900 md:text-1xl lg:text-1xl dark:text-white"> Points limit in current month: <%= Integer.to_string(@current_points)%><span class="text-blue-600 dark:text-blue-500"><%= "/" <> Integer.to_string(@points_limit)%></span>
-<%= form_for @changeset, Routes.points_path(@conn, :create), fn f -> %>
-<%= if @changeset.action do %>
+<%= form_for @points_limit_changeset, Routes.points_path(@conn, :create), fn f -> %>
+<%= if @points_limit_changeset.action do %>
     <div class="alert alert-danger">
       <p>There are some errors</p>
     </div>
   <% end %>
     <div class="form-group">
-        <%= number_input f, :points_given, placeholder: "Number of points", min: 0, class: "form-control bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:mt-2 mb-2" %>
+        <%= number_input f, :points_given, placeholder: "Reward pool limit", min: 1, class: "form-control bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:mt-2 mb-2" %>
         <%= error_tag f, :points_given %>
     </div>
     <!--<button id="dropdownDefault" data-dropdown-toggle="dropdown" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Dropdown button <svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>!-->
     <div class="input-field" id="dropdown" >
-    <%= select f, :user_id, Enum.map(@users, &{&1.name <> " " <> &1.surname <> ", " <> "Department: " <> &1.department, &1.id}), prompt: "Choose employee to be rewarded", class: "z-10 w-96 bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg divide-y divide-gray-100 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:mt-2 mb-2"%>
+    <%= select f, :user_id, Enum.map(@users, &{&1.name <> " " <> &1.surname <> ", " <> "Department: " <> &1.department, &1.id}), prompt: "Choose employee who's limit will change", class: "z-10 w-96 bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg divide-y divide-gray-100 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:mt-2 mb-2"%>
     </div>
   <%= submit "Assign points", class: "btn btn-primary text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 md:mt-2" %>
 <% end %>
@@ -43,45 +42,60 @@
 </div>
 </body>
 
+
+
 <div class="flex justify-center w-screen mt-16">
-<div class="flex w-screen max-w-2xl lg:w-3/5 p-8 content-centeropacity-125">
-    <table class="w-full text-sm text-left text-gray-500 shadow-2xl overflow-hidden rounded-2xl dark:text-gray-400">
+<div class="flex w-screen max-w-2xl justify-center p-4 rounded-lg lg:rounded-2xl shadow-2xl bg-white opacity-125">
+<h1 class="text-6xl font-extrabold w-screen tracking-tight leading-none text-gray-900 dark:text-white">Recent rewards</h1>
+
+<div class="max-w-xl mt-2 ml-16 p-4">
+    <table class=" text-sm text-left text-gray-500 shadow-md overflow-hidden rounded-2xl dark:text-gray-400">
         <thead class="text-sm text-white text-bold uppercase bg-blue-600 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-                <th scope="col" class="py-3 pr-3 max-w-xs px-6 rounded-tl-lg">
+                <th scope="col" class="py-3 pr-3 px-6 rounded-tl-lg">
                 <div class="flex place-content-center">
-                    Points
+                    Source
                 </div>
                 </th>
-                <th scope="col" class="py-3 px-6 ">
+                <th scope="col" class="py-3 px-6 w-sm ">
                     <div class="flex place-content-center">
-                        Co-worker
+                        Target
                     </div>
                 </th>
-                <th scope="col" class="py-3 px-6 rounded-tr-lg">
+                <th scope="col" class="py-3 px-6 w-xs">
                     <div class="flex place-content-center">
-                        Month
+                        Amount
+                    </div>
+                </th>
+                <th scope="col" class="py-3 px-6 w-xs rounded-tr-lg">
+                    <div class="flex place-content-center">
+                        Edit
                     </div>
                 </th>
 
             </tr>
         </thead>
-        <%= for point_log <- @points_history do %>
+        <%= for log <- @recent_points_log do %>
         <tbody>
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <th scope="row" class="py-4 px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     <div class="flex place-content-center">
-                    <%= point_log.points%>
+                    <%= log.giving_user.name <> " " <> log.giving_user.surname %>
                     </div>
                 </th>
-                <td class="py-4 px-6">
+                <td class="py-4 px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                 <div class="flex place-content-center">
-                    <%= point_log.target_user_name <> " " <> point_log.target_user_surname %>
+                    <%= log.receiving_user.name <> " " <> log.receiving_user.surname %>
                 </div>
                 </td>
-                <td class="py-4 px-6">
+                <td class="py-4 px-2font-medium text-gray-900 whitespace-nowrap dark:text-white">
                 <div class="flex place-content-center">
-                    <%= point_log.month %>
+                    <%= Integer.to_string(log.points_given) %>
+                </div>
+                </td>
+                <td class="py-4 px-2 font-bold whitespace-nowrap dark:text-white">
+                <div class="flex place-content-center underline text-blue-600 hover:text-black">
+                    <%= link "Edit", to: Routes.admin_path(@conn, :new)%>
                 </div>
                 </td>
             </tr>
@@ -89,6 +103,12 @@
         <% end %>
     </table>
 </div>
+</div>
+</div>
+<% else %>
+<div class="flex justify-center w-screen">
+<div class="w-screen max-w-fit p-8 mt-16 lg:w-3/5 rounded-lg lg:rounded-2xl shadow-2xl bg-white opacity-125">
+<h2 class=" text-2xl font-extrabold tracking-tight leading-none text-gray-900 md:text-1xl lg:text-1xl dark:text-white">You need admin permission to access this page</h2>
 </div>
 </div>
 <% end %>

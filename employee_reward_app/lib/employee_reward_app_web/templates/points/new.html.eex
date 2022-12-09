@@ -17,7 +17,7 @@
 <div class="flex justify-center place-content-between w-screen md:mt-16 ">
 
 <div class="w-screen max-w-fit pr-4 lg:w-3/5 rounded-lg lg:rounded-2xl shadow-2xl bg-white opacity-125">
-<h1 class="mb-4 ml-4 mt-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-4xl lg:text-4xl dark:text-white">Month: <mark class="px-2 text-white bg-blue-600 rounded dark:bg-blue-500"><%= @month %></mark></h>
+<h1 class="mb-4 ml-4 mt-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-4xl lg:text-4xl dark:text-white">Month: <mark class="px-2 text-white bg-blue-600 rounded dark:bg-blue-500"><%= @month %></mark></h1>
 
 <h4 class="mb-4 ml-4 text-1xl font-extrabold tracking-tight leading-none text-gray-900 md:text-1xl lg:text-1xl dark:text-white"> Points limit in current month: <%= Integer.to_string(@current_points)%><span class="text-blue-600 dark:text-blue-500"><%= "/" <> Integer.to_string(@points_limit)%></span>
 <%= form_for @changeset, Routes.points_path(@conn, :create), fn f -> %>

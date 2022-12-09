@@ -58,7 +58,8 @@ defmodule EmployeeRewardAppWeb.PointsController do
          %{
            points_assigned: points_assigned,
            target_name: target_name,
-           target_surname: target_surname
+           target_surname: target_surname,
+           target_email: target_email
          }} ->
           put_flash(
             conn,
@@ -67,6 +68,8 @@ defmodule EmployeeRewardAppWeb.PointsController do
               " " <> "points assigned to: " <> target_name <> " " <> target_surname
           )
           |> redirect(to: Routes.points_path(conn, :new))
+          EmployeeRewardApp.Email.points_email(target_email, points_assigned)
+          |> EmployeeRewardApp.Mailer.deliver_now!()
 
         :error ->
           put_flash(
