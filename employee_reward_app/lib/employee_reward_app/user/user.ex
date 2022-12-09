@@ -10,6 +10,7 @@ defmodule EmployeeRewardApp.User do
     field :password_hash, :string
     field :department, :string
     field :is_admin, :integer
+    field :points_limit, :integer, default: 50
 
     timestamps()
   end
@@ -37,13 +38,21 @@ defmodule EmployeeRewardApp.User do
 
   defp hash_password(changeset) do
     case changeset do
-      %Ecto.Changeset{valid?: true,
-      changes: %{password: password}} ->
-        put_change(changeset,
-        :password_hash,
-        Bcrypt.hash_pwd_salt(password))
+      %Ecto.Changeset{valid?: true, changes: %{password: password}} ->
+        put_change(
+          changeset,
+          :password_hash,
+          Bcrypt.hash_pwd_salt(password)
+        )
+
       _empty ->
         changeset
     end
+  end
+
+  def points_limit_changeset(struct, params) do
+    changeset(struct, params)
+    |> cast(params, [:points_limit, :id], [])
+    |> validate_required([:points_limit])
   end
 end

@@ -10,6 +10,7 @@ defmodule EmployeeRewardApp.Repo.Migrations.CreateUsers do
       add(:password_hash, :string)
       add(:department, :string)
       add(:is_admin, :integer)
+      add(:points_limit, :integer, default: 50)
 
       timestamps()
     end

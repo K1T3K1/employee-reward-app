@@ -14,13 +14,41 @@
 </ul>
 
 <body class="font-sans antialiased w-screen text-gray-900 leading-normal tracking-wider bg-cover">
-<div class="flex justify-center place-content-between w-screen md:mt-16">
-	<div class="w-screen max-w-4xl lg:w-3/5 rounded-lg lg:rounded-2xl shadow-2xl bg-white opacity-125">
-		<div class="p-4 md:p-12 text-center lg:text-left">
-			<h1 class="text-3xl font-bold pt-8 lg:pt-0">Your received rewards</h1>
-			<div class="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-blue-500 opacity-25"></div>
 
-		</div>
-	</div>
+<div class="flex justify-center w-screen mt-16">
+            <div class="flex w-screen max-w-sm p-8 content-centeropacity-125">
+                <table class="w-full text-sm text-left text-gray-500 shadow-2xl overflow-hidden rounded-2xl dark:text-gray-400">
+                    <thead class="text-sm text-white text-bold uppercase bg-blue-600 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="py-3 px-6 rounded-tl-lg">
+                                <div class="flex place-content-center">
+                                    Points
+                                </div>
+                            </th>
+                            <th scope="col" class="py-3 px-6 ">
+                                <div class="flex place-content-center">
+                                    Date
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <%= for log <- @rewards_log do %>
+                    <tbody>
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <div class="flex place-content-center">
+                                <%= log.points_received %>
+                                </div>
+                            </th>
+                            <td class="py-4 px-6">
+                            <div class="flex place-content-center">
+                                <%= Integer.to_string(log.month) <> "/" <> Integer.to_string(log.year) %>
+                            </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <% end %>
+                </table>
+            </div>
 </div>
 </body>

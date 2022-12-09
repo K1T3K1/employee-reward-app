@@ -24,11 +24,6 @@ defmodule EmployeeRewardAppWeb.Router do
     plug(EmployeeRewardAppWeb.CurrentUser)
   end
 
-  #pipeline :admin_pipeline do
-  #  plug(EmployeeRewardApp.LoginPipeline)
-  #  plug(EmployeeRewardAppWeb.CurrentUser)
-  #end
-
   scope "/", EmployeeRewardAppWeb do
     pipe_through([:browser, :session_line])
 

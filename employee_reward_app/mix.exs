@@ -52,6 +52,7 @@ defmodule EmployeeRewardApp.MixProject do
       {:bcrypt_elixir, "~>2.0"},
       {:guardian, "~>2.0"},
       {:tailwind, "~> 0.1"},
+      {:bamboo, github: "thoughtbot/bamboo"},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
     ]
   end

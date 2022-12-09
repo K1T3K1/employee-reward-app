@@ -4,6 +4,7 @@ defmodule EmployeeRewardAppWeb.UserController do
   alias EmployeeRewardApp.Repo
   alias EmployeeRewardApp.User
   alias EmployeeRewardApp.UserHelper
+  alias EmployeeRewardApp.PointsHelper
 
   plug(:scrub_params, "user" when action in [:create])
 
@@ -54,7 +55,9 @@ defmodule EmployeeRewardAppWeb.UserController do
   end
 
   def rewards(conn, _params) do
-    render(conn, "rewards.html")
+    user_id = conn.assigns.current_user.id
+    rewards_log = PointsHelper.get_user_received_points(user_id)
+    render(conn, "rewards.html", rewards_log: rewards_log)
   end
 
   def settings(conn, _params) do

@@ -1,34 +1,17 @@
-#defmodule EmployeeRewardAppWeb.AdminController do
-#  use EmployeeRewardAppWeb, :controller
-#
-#  alias EmployeeRewardApp.Repo
-#  alias EmployeeRewardApp.User
-#
-#  plug(:scrub_params, "user" when action in [:create])
-#
-#  def show(conn, %{"id" => id}) do
-#    user = Repo.get!(User, id)
-#    render(conn, "show.html", user: user)
-#  end
-#
-#  def new(conn, _params) do
-#    changeset = User.changeset(%User{}, %{})
-#    render(conn, "new.html", changeset: changeset)
-#  end
-#
-#  def create(conn, %{"user" => user_params}) do
-#    changeset = %User{} |> User.registration_changeset(user_params, is_admin: 1)
-#
-#    case Repo.insert(changeset) do
-#      {:ok, user} ->
-#        conn
-#        |> put_flash(:info, "Admin #{user.name} #{user.surname} created!")
-#        |> redirect(to: Routes.admin_path(conn, :show, user))
-#
-#      {:error, changeset} ->
-#        render(conn, "new.html", changeset: changeset)
-#    end
-#  end
-#end
-#
-  
+defmodule EmployeeRewardAppWeb.AdminController do
+  use EmployeeRewardAppWeb, :controller
+
+  alias EmployeeRewardApp.AdminHelper
+  alias EmployeeRewardApp.User
+
+  plug(:scrub_params, "user" when action in [:create])
+
+  def new(conn, _params) do
+    current_user = conn.assigns.current_user.id
+    changeset = User.points_limit_changeset(%User{}, %{})
+    user_list = AdminHelper.get_user_list(current_user)
+    render(conn, "new.html", changeset: changeset, users: user_list)
+  end
+
+
+end
