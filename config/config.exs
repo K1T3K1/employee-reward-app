@@ -33,9 +33,8 @@ config :employee_reward_app, EmployeeRewardApp.AuthAccessPipeline,
   error_handler: EmployeeRewardApp.AuthErrorHandler
 
 config :employee_reward_app, EmployeeRewardApp.Mailer,
-  adapter: Swoosh.Adapters.Mailgun,
-  api_key: {:system, "MAILGUN_API_KEY"},
-  domain: {:system, "MAILGUN_DOMAIN"}
+  adapter: Swoosh.Adapters.Sendgrid,
+  api_key: {:system, "SENDGRID_API_KEY"}
 
 # Configures the endpoint
 config :employee_reward_app, EmployeeRewardAppWeb.Endpoint,
