@@ -28,8 +28,8 @@ defmodule EmployeeRewardApp.AdminHelper do
   end
 
   def update_user_reward_pool_limit(user_id, points_limit) do
-    Repo.get_by(User, id: user_id) |> IO.inspect() |> User.points_limit_changeset(%{points_limit: points_limit}) |> IO.inspect()
-    |> Repo.update() |> IO.inspect()
+    Repo.get_by(User, id: user_id) |> User.points_limit_changeset(%{points_limit: points_limit})
+    |> Repo.update()
   end
 
   def generate_report(year, month) do

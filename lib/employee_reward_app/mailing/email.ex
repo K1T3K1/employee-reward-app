@@ -1,8 +1,8 @@
 defmodule EmployeeRewardApp.Email do
-  import Bamboo.Email
+  import Swoosh.Email
 
   def points_email(target_email, points_amount) do
-    new_email(
+    new(
       to: target_email,
       from: "administrator@rewards.app",
       subject: "You have received a reward from your co-worker!",
@@ -11,4 +11,3 @@ defmodule EmployeeRewardApp.Email do
   end
 
 end
-

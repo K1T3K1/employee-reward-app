@@ -20,7 +20,7 @@ defmodule EmployeeRewardAppWeb.AdminController do
 
   def update(conn, %{"user" => %{"reward_pool_limit" => reward_pool_limit, "user_id" => user_id}}) do
     result =
-      case PointsHelper.validate_input_fields(user_id, reward_pool_limit) |> IO.inspect() do
+      case PointsHelper.validate_input_fields(user_id, reward_pool_limit) do
         {:error, :coworker_nil} ->
           put_flash(conn, :error, "Select user to change his reward pool")
           |> redirect(to: Routes.admin_path(conn, :new))
