@@ -9,6 +9,7 @@ defmodule EmployeeRewardApp.ReceivedPoint do
     field(:year, :integer)
     belongs_to(:user, EmployeeRewardApp.User)
 
+
     timestamps()
   end
 

@@ -1,5 +1,8 @@
 defmodule EmployeeRewardApp.UserHelper do
+
   import Ecto.Query
+
+  alias EmployeeRewardApp.Department
   alias EmployeeRewardApp.Repo
   alias EmployeeRewardApp.User
 

@@ -1,34 +1,34 @@
-<ul class="flex flex-wrap text-sm w-screen font-medium text-center justify-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
+<ul class="flex flex-wrap text-sm w-screen font-medium text-center justify-center text-gray-500 border-b border-gray-200">
     <li class="mr-2">
-        <%= link "Profile", to: Routes.user_path(@conn, :show), class: "inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300" %>
+        <%= link "Profile", to: Routes.user_path(@conn, :show), class: "inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50" %>
     </li>
     <li class="mr-2">
-        <%= link "Rewards", to: Routes.user_path(@conn, :rewards, @current_user.id), class: "inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300" %>
+        <%= link "Rewards", to: Routes.user_path(@conn, :rewards, @current_user.id), class: "inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50" %>
     </li>
     <li class="mr-2">
-        <%= link "Points", to: Routes.points_path(@conn, :new), class: "inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"%>
+        <%= link "Points", to: Routes.points_path(@conn, :new), class: "inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50"%>
     </li>
     <li class="mr-2">
-        <%= link "Settings", to: Routes.user_path(@conn, :settings), class: "font-bold text-blue-600 inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300" %>
+        <%= link "Settings", to: Routes.user_path(@conn, :settings), class: "font-bold text-blue-600 inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50" %>
     </li>
 </ul>
 
 <body class="font-sans antialiased w-screen text-gray-900 leading-normal tracking-wider bg-cover">
 <div class="flex justify-center place-content-between w-screen md:mt-16 ">
 <div class="w-screen max-w-fit rounded-lg lg:rounded-2xl shadow-2xl p-4 bg-white opacity-125">
-<h4 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-4xl lg:text-4xl dark:text-white">Change password</h4>
+<h4 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-4xl lg:text-4xl">Change password</h4>
 <%= form_for @changeset, Routes.user_path(@conn, :change_password), [as: :session], fn f -> %>
-  <label for="input-group-1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Current password</label>
+  <label for="input-group-1" class="block mb-2 text-sm font-medium text-gray-900">Current password</label>
   <div class="form-group">
-    <%= password_input f, :check_password, placeholder: "Current Password", class: "form-control bg-gray-50 border-gray-300 text-gray-900 text-sm w-full rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:mt-2 mb-2" %>
+    <%= password_input f, :check_password, placeholder: "Current Password", class: "form-control bg-gray-50 border-gray-300 text-gray-900 text-sm w-full rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 md:mt-2 mb-2" %>
   </div>
-  <label for="website-admin" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New password</label>
+  <label for="website-admin" class="block mb-2 text-sm font-medium text-gray-900">New password</label>
   <div class="form-group">
-    <%= password_input f, :password, placeholder: "New password", class: "form-control bg-gray-50 border-gray-300 text-gray-900 text-sm w-full rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:mt-2" %>
+    <%= password_input f, :password, placeholder: "New password", class: "form-control bg-gray-50 border-gray-300 text-gray-900 text-sm w-full rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5  md:mt-2" %>
     <%= error_tag f, :password %>
   </div>
   <div class="pt-5">
-  <%= submit "Change", class: "btn btn-primary text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 md:mt-2" %>
+  <%= submit "Change", class: "btn btn-primary text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 md:mt-2" %>
   </div>
 <% end %>
 </div>

@@ -13,11 +13,17 @@
   border-radius: 4px;
   flex: row;
   justify-self: center;
+  justify-content: center;
 }
 .alert-info {
+  flex: row;
+  justify-self: center;
+  position: absolute;
+  top: 15%;
+  left: 15%;
   color: #31708f;
-  background-color: #d9edf7;
-  border-color: #bce8f1;
+  border-color: #31708f;
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
 }
 .alert-warning {
   color: #8a6d3b;
@@ -25,9 +31,14 @@
   border-color: #faebcc;
 }
 .alert-danger {
+  flex: row;
+  justify-self: center;
+  position: absolute;
+  top: 15%;
+  left: 15%;
   color: #a94442;
-  background-color: #f2dede;
-  border-color: #ebccd1;
+  border-color: #a94442;
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
 }
 .alert p {
   margin-bottom: 0;

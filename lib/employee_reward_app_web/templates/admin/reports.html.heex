@@ -1,0 +1,43 @@
+<%= if @current_user.is_admin == 1 do %>
+<ul class="flex flex-wrap text-sm w-screen font-medium text-center justify-center text-gray-500 border-b border-gray-200">
+    <li class="mr-2">
+        <%= link "Manage Rewards Pool", to: Routes.admin_path(@conn, :new), class: "inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50" %>
+    </li>
+    <li class="mr-2">
+        <%= link "Recent Rewards", to: Routes.admin_path(@conn, :show), class: "inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50" %>
+    </li>
+    <li class="mr-2">
+        <%= link "Reports", to: Routes.admin_path(@conn, :reports), class: "font-bold text-blue-600 inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50"%>
+    </li>
+</ul>
+
+<body class="font-sans antialiased w-screen text-gray-900 leading-normal tracking-wider bg-cover">
+<div class="flex justify-center place-content-between w-screen md:mt-16 ">
+<div class="w-screen max-w-md p-4 lg:w-3/5 rounded-lg lg:rounded-2xl shadow-2xl bg-white opacity-125">
+<h3 class="mb-4 text-2xl font-extrabold tracking-tight leading-none text-gray-900 md:text-2xl lg:text-2xl">Generate rewards report</h3>
+
+
+
+<%= form_for @report_params, Routes.admin_path(@conn, :generate_reports), fn f -> %>
+    <div class="form-group">
+        <%= number_input f, :year, placeholder: "year", min: 2022, class: "form-control w-1/3 bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 md:mt-2 mb-2" %>
+        <%= error_tag f, :year %>
+    </div>
+
+    <div class="form-group">
+        <%= number_input f, :month, placeholder: "month", min: 1, max: 99999, class: "form-control w-1/3 bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 md:mt-2 mb-2" %>
+        <%= error_tag f, :month %>
+    </div>
+  <%= submit "Generate", class: "btn btn-primary text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 md:mt-2" %>
+<% end %>
+</div>
+</div>
+</body>
+
+<% else %>
+<div class="flex justify-center w-screen">
+<div class="w-screen max-w-fit p-8 mt-16 lg:w-3/5 rounded-lg lg:rounded-2xl shadow-2xl bg-white opacity-125">
+<h2 class=" text-2xl font-extrabold tracking-tight leading-none text-gray-900 md:text-1xl lg:text-1xl">You need admin permission to access this page</h2>
+</div>
+</div>
+<% end %>

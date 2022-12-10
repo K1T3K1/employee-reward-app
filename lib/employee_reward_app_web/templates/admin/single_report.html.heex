@@ -4,13 +4,23 @@
         <%= link "Manage Rewards Pool", to: Routes.admin_path(@conn, :new), class: "inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50" %>
     </li>
     <li class="mr-2">
-        <%= link "Recent Rewards", to: Routes.admin_path(@conn, :show), class: "font-bold text-blue-600 inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50" %>
+        <%= link "Recent Rewards", to: Routes.admin_path(@conn, :show), class: "inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50" %>
     </li>
     <li class="mr-2">
-        <%= link "Reports", to: Routes.admin_path(@conn, :reports), class: "inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50"%>
+        <%= link "Reports", to: Routes.admin_path(@conn, :reports), class: "font-bold text-blue-600 inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50"%>
     </li>
 </ul>
 
+
+<body class="font-sans antialiased w-screen text-gray-900 leading-normal tracking-wider bg-cover">
+<div class="flex justify-center place-content-between w-screen md:mt-16 ">
+
+<div class="w-screen max-w-fit pr-4 lg:w-3/5 rounded-lg lg:rounded-2xl shadow-2xl bg-white opacity-125">
+<h1 class="mb-4 ml-4 mt-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-4xl lg:text-4xl">Period:<br> <mark class="px-2 text-white bg-blue-600 rounded"><%= @year <> unless is_nil(@month) do " " <> "#{@month}" else "" end %></mark></h1>
+<h3 class="mb-4 ml-4 mt-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-2xl lg:text-2xl">Overall point<br>given by users: <mark class="px-2 text-white bg-blue-600 rounded"><%= @points_sum %></mark></h3>
+</div>
+</div>
+</body>
 
 <body class="font-sans antialiased w-screen text-gray-900 leading-normal tracking-wider bg-cover">
 <div class="flex justify-center w-screen mt-16">
@@ -41,7 +51,7 @@
 
             </tr>
         </thead>
-        <%= for log <- @recent_points_log do %>
+        <%= for log <- @points_log do %>
         <tbody>
             <tr class="bg-white border-b">
                 <th scope="row" class="py-4 px-2 font-medium text-gray-900 whitespace-nowrap">
@@ -71,10 +81,4 @@
 </div>
 </div>
 </body>
-<% else %>
-<div class="flex justify-center w-screen">
-<div class="w-screen max-w-fit p-8 mt-16 lg:w-3/5 rounded-lg lg:rounded-2xl shadow-2xl bg-white opacity-125">
-<h2 class=" text-2xl font-extrabold tracking-tight leading-none text-gray-900 md:text-1xl lg:text-1xl">You need admin permission to access this page</h2>
-</div>
-</div>
 <% end %>

@@ -56,7 +56,7 @@ defmodule EmployeeRewardAppWeb.UserController do
 
   def rewards(conn, _params) do
     user_id = conn.assigns.current_user.id
-    rewards_log = PointsHelper.get_user_received_points(user_id)
+    rewards_log = PointsHelper.get_all_users_received_points(user_id)
     render(conn, "rewards.html", rewards_log: rewards_log)
   end
 

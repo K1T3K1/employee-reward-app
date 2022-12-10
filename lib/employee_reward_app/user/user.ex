@@ -31,7 +31,7 @@ defmodule EmployeeRewardApp.User do
 
   def password_changeset(struct, params) do
     changeset(struct, params)
-    |> cast(params, [:password, :id], [])
+    |> cast(params, [:password, :id])
     |> validate_length(:password, min: 6, max: 100)
     |> hash_password
   end
@@ -51,8 +51,8 @@ defmodule EmployeeRewardApp.User do
   end
 
   def points_limit_changeset(struct, params) do
-    changeset(struct, params)
-    |> cast(params, [:points_limit, :id], [])
+    struct
+    |> cast(params, [:points_limit])
     |> validate_required([:points_limit])
   end
 end

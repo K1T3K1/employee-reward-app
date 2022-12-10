@@ -32,8 +32,8 @@ config :employee_reward_app, EmployeeRewardApp.AuthAccessPipeline,
 
 config :employee_reward_app, EmployeeRewardApp.Mailer,
   adapter: Bamboo.MailgunAdapter,
-  api_key: "my_key",
-  domain: "my_domain"
+  api_key: {:system, "MAILGUN_AI_KEY"},
+  domain: {:system, "MAILGUN_DOMAIN"}
 
 # Configures the endpoint
 config :employee_reward_app, EmployeeRewardAppWeb.Endpoint,

@@ -43,7 +43,17 @@ defmodule EmployeeRewardAppWeb.Router do
     post("/settings/change_password", UserController, :change_password)
     patch("/settings/change_password", UserController, :change_password)
     put("/settings/change_password", UserController, :change_password)
-    get("/admin/new", AdminController, :new)
+  end
+
+  scope "/admin", EmployeeRewardAppWeb do
+    pipe_through([:browser, :login_pipeline])
+    get("/new", AdminController, :new)
+    get("/show", AdminController, :show)
+    get("/reports", AdminController, :reports)
+    post("/reports/generate", AdminController, :generate_reports)
+    post("/update", AdminController, :update)
+    patch("/update", AdminController, :update)
+    put("/update", AdminController, :update)
   end
 
  # scope "/admin", EmployeeRewardAppWeb do

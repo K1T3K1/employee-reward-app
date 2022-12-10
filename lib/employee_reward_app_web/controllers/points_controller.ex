@@ -50,10 +50,8 @@ defmodule EmployeeRewardAppWeb.PointsController do
           :ok
       end
 
-    points = String.to_integer(points)
-
     if result == :ok do
-      case PointsHelper.validate_points(source_user, target_user, points) do
+      case PointsHelper.validate_points(source_user, target_user, String.to_integer(points)) do
         {:ok,
          %{
            points_assigned: points_assigned,

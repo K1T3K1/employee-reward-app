@@ -1,5 +1,7 @@
 defmodule EmployeeRewardApp.PointsHelper do
+
   import Ecto.Query
+
   alias EmployeeRewardApp.Repo
   alias EmployeeRewardApp.AddPoint
   alias EmployeeRewardApp.User
@@ -134,11 +136,14 @@ defmodule EmployeeRewardApp.PointsHelper do
   end
 
   defp log_transaction(points, source_user, target_user) do
+    {year, month} = get_month_year_int()
     %AddPoint{}
     |> AddPoint.changeset(%{
       points_given: points,
       receiving_user_id: target_user,
-      giving_user_id: source_user
+      giving_user_id: source_user,
+      year: year,
+      month: month
     })
     |> Repo.insert()
   end
@@ -165,7 +170,7 @@ defmodule EmployeeRewardApp.PointsHelper do
     Repo.one(query)
   end
 
-  def get_user_received_points(user_id) do
+  def get_all_users_received_points(user_id) do
     query =
       from(r in ReceivedPoint,
         where: r.user_id == ^user_id,
@@ -237,7 +242,7 @@ defmodule EmployeeRewardApp.PointsHelper do
     Calendar.strftime(DateTime.utc_now(), "%B")
   end
 
-  defp get_month_string(date_time_struct) do
+  def get_month_string(date_time_struct) do
     Calendar.strftime(date_time_struct, "%B")
   end
 
