@@ -53,6 +53,7 @@ defmodule EmployeeRewardApp.MixProject do
       {:guardian, "~>2.0"},
       {:tailwind, "~> 0.1"},
       {:bamboo, github: "thoughtbot/bamboo"},
+      {:gen_smtp, "~> 1.2.0"},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
     ]
   end
