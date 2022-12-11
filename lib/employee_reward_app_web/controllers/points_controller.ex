@@ -59,9 +59,13 @@ defmodule EmployeeRewardAppWeb.PointsController do
            target_surname: target_surname,
            target_email: target_email
          }} ->
-          EmployeeRewardApp.Email.points_email(target_email, points_assigned) |> IO.inspect()
-          |> EmployeeRewardApp.Mailer.deliver!() |> IO.inspect
-          put_flash(
+          try do
+            EmployeeRewardApp.Email.points_email(target_email, points_assigned) |> IO.inspect()
+            |> EmployeeRewardApp.Mailer.deliver!() |> IO.inspect
+          rescue
+              _e in DeliveryError -> :failed_to_deliver
+          end
+            put_flash(
             conn,
             :info,
             points_assigned <>
