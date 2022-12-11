@@ -63,7 +63,7 @@ defmodule EmployeeRewardAppWeb.PointsController do
             EmployeeRewardApp.Email.points_email(target_email, points_assigned) |> IO.inspect()
             |> EmployeeRewardApp.Mailer.deliver!() |> IO.inspect
           rescue
-              _e in DeliveryError -> :failed_to_deliver
+              _e in Swoosh.DeliveryError -> :failed_to_deliver
           end
             put_flash(
             conn,
