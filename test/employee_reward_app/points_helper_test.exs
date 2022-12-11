@@ -1,6 +1,6 @@
 defmodule EmployeeRewardApp.PointsHelperTest do
   use EmployeeRewardApp.DataCase
-  
+
   alias EmployeeRewardApp.PointsHelper
 
   @input_user_id "5"
@@ -26,6 +26,4 @@ defmodule EmployeeRewardApp.PointsHelperTest do
             {:error, :points_negative}
   end
 
-  test "validate points" do
-  end
 end
